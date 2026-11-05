@@ -10,11 +10,11 @@ const projectTags = [...html.matchAll(/<a\b[^>]*\bdata-category="([^"]+)"[^>]*>/
 test('all six project cards use the requested production destinations', () => {
   const destinations = projectTags.map(([tag]) => tag.match(/\bhref="([^"]+)"/)[1]);
   assert.deepEqual(destinations.sort(), [
-    'https://starun.cloud/web',
+    'https://astra.starun.cloud/',
     'https://starun.cloud/telescope',
-    'https://starun.cloud/pc',
-    'https://starun.cloud/deepsky-skills',
-    'https://starun.cloud/mobile',
+    'https://github.com/MZqk/StarunClient',
+    'https://github.com/MZqk/deepsky-skill',
+    'https://github.com/MZqk/StarunAndroid',
     'https://starun.cloud/map',
   ].sort());
 });

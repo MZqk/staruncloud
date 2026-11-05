@@ -20,14 +20,14 @@ node --test tests/homepage.test.mjs
 
 | Project | Destination |
 | --- | --- |
-| Starun Web | https://starun.cloud/web |
+| Starun Web | https://astra.starun.cloud/ |
 | Telescope comparison | https://starun.cloud/telescope |
-| Starun desktop | https://starun.cloud/pc |
-| DeepSky Skills | https://starun.cloud/deepsky-skills |
-| Starun mobile | https://starun.cloud/mobile |
+| Starun desktop | https://github.com/MZqk/StarunClient |
+| DeepSky Skills | https://github.com/MZqk/deepsky-skill |
+| Starun mobile | https://github.com/MZqk/StarunAndroid |
 | Sky pollution map | https://starun.cloud/map |
 
-These are the requested final URLs. Deployment of the applications and migration of the existing root application to `/web` are separate from this homepage. Do not redirect existing applications to the homepage or use a catch-all homepage fallback for their routes.
+These are the requested final URLs. The Starun web application lives on its own host, `astra.starun.cloud` — it is not mounted under a `starun.cloud` sub-path, because the Next.js app has no `basePath` configured and its `/_next/*` asset URLs are absolute. Do not redirect existing applications to the homepage or use a catch-all homepage fallback for their routes.
 
 The `web3astra` README currently describes a deep-sky image animation tool rather than a pollution map. The homepage follows the requested map name and URL; confirm the map application's source before routing it in production.
 
