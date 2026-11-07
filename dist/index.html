@@ -4,15 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0b0e14">
-  <title>Starun 星空工具箱｜FITS 后期与智能望远镜对比</title>
-  <meta name="description" content="在线读取线性 FITS/XISF，给出星点、噪声与动态范围诊断，再生成成片；另附智能望远镜横向对比与暗空地图。MZZZ 独立开发。">
+  <title>Starun 星空工具箱｜FITS 后期、深空视差与智能望远镜对比</title>
+  <meta name="description" content="在线读取线性 FITS/XISF，给出星点、噪声与动态范围诊断，再生成成片；也能把深空照片变成 3D 视差视频与实况图；另附智能望远镜横向对比与暗空地图。MZZZ 独立开发。">
   <link rel="canonical" href="https://starun.cloud/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Starun 星空工具箱">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:url" content="https://starun.cloud/">
-  <meta property="og:title" content="Starun 星空工具箱｜FITS 后期与智能望远镜对比">
-  <meta property="og:description" content="在线读取线性 FITS/XISF，给出星点、噪声与动态范围诊断，再生成成片；另附智能望远镜横向对比与暗空地图。">
+  <meta property="og:title" content="Starun 星空工具箱｜FITS 后期、深空视差与智能望远镜对比">
+  <meta property="og:description" content="在线读取线性 FITS/XISF，给出星点、噪声与动态范围诊断，再生成成片；也能把深空照片变成 3D 视差视频与实况图；另附智能望远镜横向对比与暗空地图。">
   <meta property="og:image" content="https://starun.cloud/assets/og-cover.jpg">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
@@ -42,7 +42,7 @@
           "url": "https://starun.cloud/",
           "name": "Starun 星空工具箱",
           "inLanguage": "zh-CN",
-          "description": "在线读取线性 FITS/XISF 做后期分析与出图，横向对比智能望远镜，按光污染等级寻找暗空拍摄点。",
+          "description": "在线读取线性 FITS/XISF 做后期分析与出图，把深空照片转成 3D 视差视频与实况图，横向对比智能望远镜，按光污染等级寻找暗空拍摄点。",
           "author": { "@id": "https://starun.cloud/#person" }
         }
       ]
@@ -61,6 +61,7 @@
     <symbol id="code" viewBox="0 0 24 24"><path d="m7 7-5 5 5 5m10-10 5 5-5 5M14 4l-4 16"/></symbol>
     <symbol id="telescope" viewBox="0 0 24 24"><path d="m4 10 12-6 3 6-12 6Zm1-1L3 5m13-1 2-1 4 8-2 1M12 14v7m0-5-5 5m5-5 5 5"/></symbol>
     <symbol id="map" viewBox="0 0 24 24"><path d="m3 5 6-2 6 2 6-2v16l-6 2-6-2-6 2Zm6-2v16m6-14v16"/></symbol>
+    <symbol id="layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5Zm-9 9 9 5 9-5m-18 4 9 5 9-5"/></symbol>
   </svg>
 
   <header class="site-header shell">
@@ -119,17 +120,17 @@
     <section id="projects" class="projects shell" aria-labelledby="projects-title">
       <div class="section-heading">
         <h2 id="projects-title">为星空，做一点东西<span class="small-period">.</span></h2>
-        <p class="section-aside">六个项目，持续生长。<br>覆盖从选器材、找暗空，到出片的完整流程。</p>
+        <p class="section-aside">七个项目，持续生长。<br>覆盖从选器材、找暗空，到出片与动态呈现的完整流程。</p>
       </div>
 
       <div class="project-toolbar">
         <div class="filters" role="group" aria-label="按用途筛选项目">
-          <button type="button" data-filter="all" aria-pressed="true">全部项目 <span>6</span></button>
-          <button type="button" data-filter="processing" aria-pressed="false">影像后期 <span>3</span></button>
+          <button type="button" data-filter="all" aria-pressed="true">全部项目 <span>7</span></button>
+          <button type="button" data-filter="processing" aria-pressed="false">影像后期 <span>4</span></button>
           <button type="button" data-filter="planning" aria-pressed="false">拍摄与器材 <span>2</span></button>
           <button type="button" data-filter="skills" aria-pressed="false">AI 工作流 <span>1</span></button>
         </div>
-        <span class="project-count" id="project-count" role="status" aria-live="polite">6 个项目，等你探索</span>
+        <span class="project-count" id="project-count" role="status" aria-live="polite">7 个项目，等你探索</span>
       </div>
 
       <div class="project-grid">
@@ -203,6 +204,49 @@
             </div>
           </div>
           <div class="card-footer"><span>离线运行 · 随身后期</span><span class="mono">GITHUB</span></div>
+        </a>
+
+        <a class="project-card motion-card" href="https://starun.cloud/motion/" data-category="processing" aria-labelledby="motion-title">
+          <div class="card-top">
+            <span class="product-icon mint" aria-hidden="true"><svg class="icon"><use href="#layers"/></svg></span>
+            <span class="platform">WEB APP · LOCAL-FIRST</span>
+            <svg class="icon card-arrow" aria-hidden="true"><use href="#diagonal"/></svg>
+          </div>
+          <h3 id="motion-title">deepsky-motion <span>深空视差</span></h3>
+          <p class="card-description">把一张深空照片分成多层星点，用相机推进式运镜生成 3D 视差视频与实况图，导出 MP4 或动态 WebP。</p>
+          <div class="motion-visual" aria-hidden="true">
+            <svg viewBox="0 0 300 150">
+              <defs>
+                <radialGradient id="motion-fade" cx=".5" cy=".5" r=".55">
+                  <stop offset="0" stop-color="#8fc7b6" stop-opacity=".16"/>
+                  <stop offset="1" stop-color="#8fc7b6" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+              <rect x="52" y="18" width="196" height="112" rx="4" fill="url(#motion-fade)"/>
+              <g fill="none" stroke="currentColor">
+                <rect x="54" y="26" width="192" height="100" rx="3" opacity=".16"/>
+                <rect x="74" y="38" width="152" height="76" rx="3" opacity=".3"/>
+                <rect x="94" y="50" width="112" height="52" rx="3" opacity=".55"/>
+              </g>
+              <g fill="currentColor">
+                <circle cx="128" cy="70" r="2.4" opacity=".95"/>
+                <circle cx="158" cy="88" r="1.6" opacity=".7"/>
+                <circle cx="188" cy="60" r="2" opacity=".85"/>
+                <circle cx="204" cy="98" r="1.2" opacity=".6"/>
+                <circle cx="118" cy="102" r="1.1" opacity=".55"/>
+                <circle cx="174" cy="50" r="1" opacity=".5"/>
+                <circle cx="146" cy="94" r=".9" opacity=".45"/>
+                <circle cx="98" cy="54" r=".8" opacity=".35"/>
+                <circle cx="218" cy="72" r=".7" opacity=".35"/>
+                <circle cx="198" cy="114" r=".8" opacity=".3"/>
+              </g>
+              <path d="M198 132h44m-7-6 7 6-7 6" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".5"/>
+              <text x="54" y="144" fill="currentColor" opacity=".45" font-size="8" font-family="monospace">NEAR</text>
+              <text x="231" y="144" fill="currentColor" opacity=".45" font-size="8" font-family="monospace">FAR</text>
+            </svg>
+            <span class="motion-note">STAR LAYERS · DOLLY-IN</span>
+          </div>
+          <div class="card-footer"><span>星点分层 · 视差运镜 · 实况图</span><span class="mono">/MOTION</span></div>
         </a>
 
         <a class="project-card skills-card" href="https://github.com/MZqk/deepsky-skill" data-category="skills" aria-labelledby="skills-title">

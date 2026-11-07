@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0e14">
+  <title>404 · 这条链接通向空域 | Starun 星空工具箱</title>
+  <meta name="description" content="没有找到你要访问的 Starun 页面，这里提供返回首页和七个项目入口的提示。">
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/svg+xml" href="/assets/starun.svg">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">跳转到内容</a>
+  <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="diagonal" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6h12v12"/></symbol>
+  </svg>
+
+  <header class="site-header shell">
+    <a class="brand" href="/" aria-label="Starun 首页">
+      <img src="/assets/starun.svg" alt="" width="35" height="35">
+      <span>starun<span class="brand-dot">.</span></span>
+    </a>
+    <nav aria-label="主导航">
+      <a class="nav-projects" href="/#projects">项目</a>
+      <a href="/#workflow">探索路径</a>
+      <a href="/#about">关于我</a>
+    </nav>
+    <a class="header-link" href="/" aria-label="回到 Starun 首页">
+      <span>回到首页</span>
+      <svg class="icon" aria-hidden="true"><use href="#diagonal"/></svg>
+    </a>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="not-found shell" aria-labelledby="not-found-title">
+      <div class="not-found-copy">
+        <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> ERR 404 · SIGNAL LOST</p>
+        <h1 id="not-found-title">这条链接，<br>通向<span class="serif">空域</span><span class="title-period">。</span></h1>
+        <p class="not-found-description">
+          没有找到这个页面：<code id="missing-path">/</code> 可能拼写有误，或者页面已经移动、下线。
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="/">回到首页 <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a>
+          <a class="text-link" href="/#projects">看看有哪些项目 <svg class="icon" aria-hidden="true"><use href="#diagonal"/></svg></a>
+        </div>
+        <p class="not-found-note">
+          <span class="status-dot" aria-hidden="true"></span>
+          如果你是从某个 Starun 项目的链接点过来的，说明那个入口暂时失效了，可以从下面的项目入口进入。
+        </p>
+      </div>
+
+      <div class="not-found-visual" aria-hidden="true">
+        <div class="not-found-field">
+          <span class="not-found-code">404</span>
+          <span class="not-found-caption">NO FIX · 未被捕获的页面</span>
+        </div>
+        <div class="field-corner corner-tl"></div>
+        <div class="field-corner corner-tr"></div>
+        <div class="field-corner corner-bl"></div>
+        <div class="field-corner corner-br"></div>
+      </div>
+    </section>
+
+    <section class="not-found-links shell" aria-labelledby="quick-links-title">
+      <h2 id="quick-links-title">也许你想找的是</h2>
+      <ul>
+        <li><a href="https://astra.starun.cloud/"><span>Starun 在线后期</span><span class="mono">ASTRA ↗</span></a></li>
+        <li><a href="https://github.com/MZqk/StarunClient"><span>Starun 桌面端</span><span class="mono">GITHUB ↗</span></a></li>
+        <li><a href="https://github.com/MZqk/StarunAndroid"><span>Starun 安卓端</span><span class="mono">GITHUB ↗</span></a></li>
+        <li><a href="https://github.com/MZqk/deepsky-skill"><span>DeepSky Skills</span><span class="mono">GITHUB ↗</span></a></li>
+        <li><a href="/motion/"><span>deepsky-motion 深空视差</span><span class="mono">/MOTION</span></a></li>
+        <li><a href="/telescope"><span>智能望远镜对照表</span><span class="mono">/TELESCOPE</span></a></li>
+        <li><a href="/map"><span>暗空地图</span><span class="mono">/MAP</span></a></li>
+        <li><a href="/#projects"><span>全部项目</span><span class="mono">PROJECTS</span></a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer shell">
+    <a class="brand footer-brand" href="/" aria-label="回到 Starun 首页">
+      <img src="/assets/starun.svg" alt="" width="25" height="25" loading="lazy">
+      <span>starun.</span>
+    </a>
+    <p>© <span id="year">2026</span> MZZZ <span class="footer-divider">/</span> 用代码，靠近星空。</p>
+    <a class="back-top" href="/">回到首页 ↑</a>
+  </footer>
+
+  <script>
+    const missingPath = document.getElementById('missing-path');
+    if (missingPath) {
+      missingPath.textContent = location.pathname + location.search;
+    }
+    document.getElementById('year').textContent = String(new Date().getFullYear());
+  </script>
+</body>
+</html>

@@ -4,10 +4,11 @@ import { test } from 'node:test';
 import { runInNewContext } from 'node:vm';
 
 const html = readFileSync(new URL('../dist/index.html', import.meta.url), 'utf8');
+const notFound = readFileSync(new URL('../dist/404.html', import.meta.url), 'utf8');
 const script = readFileSync(new URL('../dist/app.js', import.meta.url), 'utf8');
 const projectTags = [...html.matchAll(/<a\b[^>]*\bdata-category="([^"]+)"[^>]*>/g)];
 
-test('all six project cards use the requested production destinations', () => {
+test('all seven project cards use the requested production destinations', () => {
   const destinations = projectTags.map(([tag]) => tag.match(/\bhref="([^"]+)"/)[1]);
   assert.deepEqual(destinations.sort(), [
     'https://astra.starun.cloud/',
@@ -16,10 +17,26 @@ test('all six project cards use the requested production destinations', () => {
     'https://github.com/MZqk/deepsky-skill',
     'https://github.com/MZqk/StarunAndroid',
     'https://starun.cloud/map',
+    'https://starun.cloud/motion/',
   ].sort());
 });
 
-test('filters show the correct projects and restore all six cards', () => {
+test('the 404 page stays out of search and points back to the site', () => {
+  assert.match(notFound, /<meta name="robots" content="noindex">/);
+  assert.match(notFound, /id="missing-path"/);
+  for (const destination of [
+    'href="/"',
+    'href="/#projects"',
+    'href="https://astra.starun.cloud/"',
+    'href="/telescope"',
+    'href="/motion/"',
+    'href="/map"',
+  ]) {
+    assert.ok(notFound.includes(destination), `404 page should link to ${destination}`);
+  }
+});
+
+test('filters show the correct projects and restore all seven cards', () => {
   const filters = [...html.matchAll(/<button\b[^>]*data-filter="([^"]+)"/g)].map(([, filter]) => ({
     dataset: { filter },
     setAttribute(name, value) { this[name] = value; },
@@ -35,7 +52,7 @@ test('filters show the correct projects and restore all six cards', () => {
     },
   });
 
-  for (const [filter, expected] of [['processing', 3], ['planning', 2], ['skills', 1], ['all', 6]]) {
+  for (const [filter, expected] of [['processing', 4], ['planning', 2], ['skills', 1], ['all', 7]]) {
     const active = filters.find((button) => button.dataset.filter === filter);
     active.click();
     assert.equal(cards.filter((card) => !card.hidden).length, expected);

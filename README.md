@@ -24,6 +24,7 @@ node --test tests/homepage.test.mjs
 | Telescope comparison | https://starun.cloud/telescope |
 | Starun desktop | https://github.com/MZqk/StarunClient |
 | DeepSky Skills | https://github.com/MZqk/deepsky-skill |
+| DeepSky Motion | https://starun.cloud/motion/ |
 | Starun mobile | https://github.com/MZqk/StarunAndroid |
 | Sky pollution map | https://starun.cloud/map |
 
@@ -37,4 +38,4 @@ The Starun symbol is reused from the local Starun web project. The nebula image 
 
 ## Deployment
 
-Serve `dist/` at the domain root. The homepage itself needs only static hosting. The existing applications must remain mounted at their individual paths in the domain's reverse proxy. This repository does not change the deployment of any sibling project.
+Serve `dist/` at the domain root. The homepage itself needs only static hosting. Unknown paths answer with `dist/404.html` through the server's `error_page 404 /404.html` rule; the page keeps the 404 status and is marked `noindex`. The existing applications must remain mounted at their individual paths in the domain's reverse proxy. This repository does not change the deployment of any sibling project.
