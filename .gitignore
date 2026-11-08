@@ -2,3 +2,7 @@
 .sites/
 artifacts/
 node_modules/
+.hallmark/
+.impeccable/
+.workbuddy/
+dist/.hallmark/

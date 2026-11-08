@@ -34,7 +34,14 @@ The `web3astra` README currently describes a deep-sky image animation tool rathe
 
 ## Assets
 
-The Starun symbol is reused from the local Starun web project. The nebula image is a deterministic synthetic sample from `web3astra`, compressed to JPEG, and is identified as illustrative in the interface. The before/after treatment and map are visual illustrations, not processing results or live map data.
+The Starun symbol is reused from the local Starun web project. The nebula image is a deterministic synthetic sample from `web3astra`, compressed to JPEG, and is identified as illustrative in the caption beneath it.
+
+The seven project images in `assets/r/shot-*.webp` are screenshots of the running applications, captured at 1440x900 on 2026-11-07: `astra.starun.cloud`, `starun.cloud/telescope`, `starun.cloud/motion/`, `starun.cloud/map`, and the three GitHub repositories. Re-capture any of them when that project's interface changes; nothing on the page draws a product.
+
+## Styles
+
+`dist/styles.css` carries the page. `dist/tokens.css` (colour, type, spacing, motion scales) and `dist/base.css` (the base rules) are the shared system, imported at the top of `styles.css`. Change a token there rather than a value in the page stylesheet.
+
 
 ## Deployment
 
