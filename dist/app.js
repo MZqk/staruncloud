@@ -28,6 +28,27 @@ if (year) {
   year.textContent = String(new Date().getFullYear());
 }
 
+// Interactive Hero Specimen Split Slider (Seestar S30 Pro C 50 linear vs stretched)
+const plateSplit = document.getElementById('plate-split');
+if (plateSplit && typeof plateSplit.addEventListener === 'function') {
+  const plateFrame = plateSplit.closest?.('.plate__frame') || document.querySelector?.('.plate__frame');
+  const plateRatio = document.getElementById('plate-ratio');
+
+  function syncPlateSplit() {
+    const val = Math.min(100, Math.max(0, Number(plateSplit.value) || 0));
+    const stretchedPct = 100 - val;
+    plateFrame?.style?.setProperty('--split', `${val}%`);
+    if (plateRatio) {
+      plateRatio.textContent = `${val}% / ${stretchedPct}%`;
+    }
+    plateSplit.setAttribute?.('aria-valuetext', `线性原片占 ${val}%，拉伸成片占 ${stretchedPct}%`);
+  }
+
+  syncPlateSplit();
+  plateSplit.addEventListener('input', syncPlateSplit);
+  plateSplit.addEventListener('change', syncPlateSplit);
+}
+
 // 3D Layered Carousel Deck Controller
 if (typeof window !== 'undefined' && typeof document?.querySelector === 'function') {
   const stage = document.querySelector('.deck__stage');
@@ -158,7 +179,7 @@ if (typeof window !== 'undefined' && typeof document?.querySelector === 'functio
       if (dotsContainer) dotsContainer.innerHTML = '';
       dotButtons = [];
       lastVisibleCards = [];
-      if (announce && statusEl) statusEl.textContent = '';
+      if (announce && statusEl) statusEl.textContent = '当前筛选暂无匹配项目';
       return;
     }
 
@@ -277,8 +298,9 @@ if (typeof window !== 'undefined' && typeof document?.querySelector === 'functio
   // Keyboard navigation inside carousel
   if (deck) {
     deck.addEventListener('keydown', (e) => {
-      if (getVisibleCards().length < 3) return;
-      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      const visibleCards = getVisibleCards();
+      if (visibleCards.length < 3) return;
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight' && e.key !== 'Home' && e.key !== 'End') return;
       e.preventDefault?.();
       const fromCard = deckCards.includes(document.activeElement);
       const fromDot = dotButtons.includes(document.activeElement);
@@ -287,7 +309,14 @@ if (typeof window !== 'undefined' && typeof document?.querySelector === 'functio
         focusActiveDot: fromDot,
       };
       if (e.key === 'ArrowLeft') prev(opts);
-      else next(opts);
+      else if (e.key === 'ArrowRight') next(opts);
+      else if (e.key === 'Home') {
+        activeIndex = 0;
+        update({ announce: true, ...opts });
+      } else if (e.key === 'End') {
+        activeIndex = visibleCards.length - 1;
+        update({ announce: true, ...opts });
+      }
     });
   }
 
@@ -313,7 +342,7 @@ if (typeof window !== 'undefined' && typeof document?.querySelector === 'functio
 
   onFilterChange = () => {
     activeIndex = 0;
-    update();
+    update({ announce: true });
   };
 
   update();

@@ -298,6 +298,16 @@ test('3D carousel controller manages focus, dot identity, hidden card cleanup, a
   assert.match(initialDotRefs[2].getAttribute('aria-label'), /切换至第 3 个项目：/);
   assert.equal(statusEl.textContent, `第 3 / 7 项：${cardElements[2]._titleEl.textContent}`);
 
+  // Home / End keys jump directly to first and last card while preserving focus
+  deck.dispatch('keydown', { key: 'End' });
+  assert.equal(curSpan.textContent, '7');
+  assert.equal(doc.activeElement, initialDotRefs[6]);
+  deck.dispatch('keydown', { key: 'Home' });
+  assert.equal(curSpan.textContent, '1');
+  assert.equal(doc.activeElement, initialDotRefs[0]);
+  initialDotRefs[2].focus();
+  initialDotRefs[2].dispatch('click');
+
   // ArrowRight when focused on a dot keeps focus advancing across dots
   deck.dispatch('keydown', { key: 'ArrowRight' });
   assert.equal(curSpan.textContent, '4');
@@ -443,6 +453,52 @@ test('polished naming, parallel stylesheets, DESIGN.md alignment, and orphan-saf
   assert.match(html, /id="about-title"[\s\S]*<span class="keep">想法。<\/span>/);
   assert.match(styles, /\.about h2\s*\{[^}]*max-width:\s*24ch/);
   assert.match(html, /id="hero-title"[\s\S]*<abbr\b[^>]*>FITS<\/abbr>[\s\S]*<abbr\b[^>]*>XISF<\/abbr>/);
+
+  // Hero interactive specimen delivers synchronous paired linear & stretched layers with accessible slider
+  assert.match(html, /src="assets\/r\/hero-stretched-1200\.jpg"[\s\S]*?fetchpriority="high"\s+decoding="sync"/);
+  assert.match(html, /src="assets\/r\/hero-linear-1200\.jpg"[\s\S]*?decoding="sync"/);
+  assert.match(html, /type="range"[^>]*id="plate-split"[^>]*min="0"[^>]*max="100"/);
+  assert.doesNotMatch(html, /合成插画|hero-plate-/);
+  assert.match(html, /Seestar S30 Pro 实拍玫瑰星云 C 50/);
+  assert.doesNotMatch(styles, /\.plate__frame[\s\S]*?mix-blend-mode:\s*lighten/);
+  assert.doesNotMatch(styles, /\.plate__frame[\s\S]*?saturate\(0\.45\)/);
+  assert.match(styles, /\.plate__frame\s*\{[^}]*border-radius:\s*var\(--radius-card\)/);
+  assert.match(styles, /\.plate__layer--linear\s*\{[^}]*clip-path:\s*inset\(/);
+
+  // Critique P1/P2 fixes: web-first order, flank titles visible on pos ±1, MACOS casing fixed, full-width 404 group underline
+  const cardOrder = [...html.matchAll(/<a class="card deck__card"[\s\S]*?<h3[^>]*>([^<]+)<\/h3>/g)].map((m) => m[1]);
+  assert.deepEqual(cardOrder, [
+    'Starun 网页版',
+    'deepsky-motion 深空视差',
+    '智能望远镜对照表',
+    'Starun 桌面端',
+    'Starun 手机端',
+    'DeepSky Skills',
+    '找一片更暗的天空',
+  ]);
+  assert.match(styles, /\.chip\[aria-pressed="true"\]\s*\{[^}]*border-color:\s*var\(--color-accent\)/);
+  assert.match(styles, /\.chip\[aria-pressed="true"\]\s+span\s*\{[^}]*--color-accent/);
+  assert.match(styles, /\.deck\[data-deck-mode="carousel"\]\s+\.deck__card:is\(\[data-deck-pos="1"\],\s*\[data-deck-pos="-1"\]\)\s+\.card__body\s*>\s*:not\(\.card__badge\):not\(h3\)/);
+  assert.doesNotMatch(styles, /\.card__badge\s*\{[^}]*text-transform:\s*uppercase/);
+  assert.match(styles, /\.lost__group-title\s*\{[^}]*max-width:\s*none;\s*width:\s*100%/);
+  assert.match(styles, /\.mast::before\s*\{[^}]*var\(--color-paper\)\s+74%/);
+  assert.doesNotMatch(styles, /scroll-margin-top:/);
+  assert.match(styles, /@media\s*\(max-width:\s*48rem\)[\s\S]*html\s*\{\s*scroll-padding-top:\s*80px;\s*\}/);
+  assert.match(styles, /@media\s*\(max-width:\s*48rem\)[\s\S]*\.deck__controls\s*\{[^}]*margin-top:\s*var\(--space-sm\)/);
+
+  // Adapt P2: symmetric mobile header pill centering, header gradient scrim, and viewport-fit=cover
+  for (const docHtml of [html, notFound]) {
+    assert.match(docHtml, /name="viewport"[^>]*viewport-fit=cover/);
+  }
+  assert.match(styles, /\.mast::before\s*\{[^}]*pointer-events:\s*none;[^}]*linear-gradient\(/);
+  assert.match(styles, /@media\s*\(max-width:\s*48rem\)[\s\S]*\.mast__inner\s*\{\s*justify-content:\s*center;\s*\}/);
+
+  // Final polish: cross-page CTA consistency, harmonized disabled states, and inline 404 code pill
+  assert.ok(notFound.includes('看看有哪些工具'));
+  assert.doesNotMatch(notFound, /看看有哪些项目/);
+  assert.match(styles, /\.deck__btn:disabled\s*\{[^}]*opacity:\s*0\.55;[^}]*transform:\s*none;/);
+  assert.match(styles, /\.chip:disabled\s*\{[^}]*opacity:\s*0\.55;[^}]*transform:\s*none;/);
+  assert.match(styles, /\.lost__body\s+code\s*\{[^}]*padding:\s*var\(--space-3xs\)\s+var\(--space-xs\)/);
 });
 
 test('3D carousel handles circular wrapping, flank clicks, touch swipes, keyboard guards, and filter reset', () => {
@@ -568,4 +624,49 @@ test('dist audit: zero leftover build debris, zero unused nebula assets, valid a
   assert.doesNotMatch(base, /0\.01ms\s*!important/);
   assert.match(styles, /@media\s*\(prefers-reduced-motion:\s*reduce\)/);
   assert.match(styles, /@media\s*\(prefers-reduced-motion:\s*reduce\)[\s\S]*\.deck__card[\s\S]*opacity/);
+});
+
+test('clarified project cards expose real platform expectations, specific CTAs, and authentic alt descriptions', () => {
+  assert.doesNotMatch(html, /提交记录与文件列表/);
+  assert.doesNotMatch(html, /class="card__cta">查看仓库/);
+  assert.match(html, /id="pc-title"[\s\S]*?macOS 14\+[\s\S]*?源码构建[\s\S]*?GitHub 源码与打包指南/);
+  assert.match(html, /id="mobile-title"[\s\S]*?Android 9\+[\s\S]*?无联网权限[\s\S]*?源码构建 APK[\s\S]*?GitHub 源码与模型指引/);
+  assert.match(html, /id="skills-title"[\s\S]*?npx skills add MZqk\/deepsky-skill[\s\S]*?Siril 1\.4\+[\s\S]*?GitHub 获取技能与文档/);
+  assert.match(html, /id="about-title"[\s\S]*?https:\/\/github\.com\/MZqk/);
+  assert.match(notFound, /https:\/\/github\.com\/MZqk/);
+});
+
+test('interactive hero specimen slider updates CSS --split, readout ratio, and aria-valuetext', () => {
+  const plateFrame = {
+    props: new Map(),
+    style: {
+      setProperty(k, v) { plateFrame.props.set(k, v); },
+    },
+  };
+  const plateRatio = { textContent: '' };
+  const attrs = new Map();
+  const listeners = new Map();
+  const plateSplit = {
+    value: '43',
+    closest: (sel) => (sel === '.plate__frame' ? plateFrame : null),
+    setAttribute: (k, v) => attrs.set(k, v),
+    getAttribute: (k) => attrs.get(k),
+    addEventListener: (ev, fn) => listeners.set(ev, fn),
+  };
+  runInNewContext(script, {
+    document: {
+      querySelectorAll: () => [],
+      getElementById: (id) => id === 'plate-split' ? plateSplit : id === 'plate-ratio' ? plateRatio : null,
+    },
+  });
+
+  assert.equal(plateFrame.props.get('--split'), '43%');
+  assert.equal(plateRatio.textContent, '43% / 57%');
+  assert.equal(plateSplit.getAttribute('aria-valuetext'), '线性原片占 43%，拉伸成片占 57%');
+
+  plateSplit.value = '78';
+  listeners.get('input')();
+  assert.equal(plateFrame.props.get('--split'), '78%');
+  assert.equal(plateRatio.textContent, '78% / 22%');
+  assert.equal(plateSplit.getAttribute('aria-valuetext'), '线性原片占 78%，拉伸成片占 22%');
 });
