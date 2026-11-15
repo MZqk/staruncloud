@@ -22,7 +22,9 @@
   <link rel="icon" type="image/svg+xml" href="assets/starun.svg">
   <link rel="preload" as="image" type="image/webp"
         imagesrcset="assets/r/hero-plate-640.webp 640w, assets/r/hero-plate-1200.webp 1200w, assets/r/hero-plate-1456.webp 1456w"
-        imagesizes="(min-width: 60rem) 54vw, 100vw">
+        imagesizes="(min-width: 60rem) 54vw, 100vw" fetchpriority="high">
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="base.css">
   <link rel="stylesheet" href="styles.css">
   <script src="app.js" defer></script>
   <script type="application/ld+json">
@@ -56,16 +58,15 @@
     <div class="mast__inner container">
       <div class="mast__pill">
         <a class="brand" href="#main" aria-label="Starun 首页">
-          <img src="assets/starun.svg" alt="" width="26" height="26">
+          <img src="assets/starun.svg" alt="" width="30" height="30">
           <span>starun<span class="brand__dot">.</span></span>
         </a>
         <nav class="mast__nav" aria-label="主导航">
           <a href="#projects">项目</a>
-          <a href="#workflow">探索路径</a>
           <a href="#about">关于我</a>
         </nav>
       </div>
-      <a class="btn btn--quiet mast__action" href="https://astra.starun.cloud/" aria-label="打开 Starun 在线后期">打开 Starun</a>
+      <a class="btn btn--quiet mast__action" href="https://astra.starun.cloud/" aria-label="打开 Starun 网页版">打开 Starun</a>
     </div>
   </header>
 
@@ -73,7 +74,7 @@
     <section class="hero container" aria-labelledby="hero-title">
       <div class="hero__text">
         <h1 id="hero-title">把热爱，<br>写进<span class="verb">星空</span>。</h1>
-        <p class="lead">从挑一台智能望远镜、找一片够暗的天空，到把一张 <strong>FITS / XISF</strong> 处理成能发出去的作品：这条路上要用的工具，我一件件做了出来。</p>
+        <p class="lead">从挑一台智能望远镜、找一片够暗的天空，到把一张 <strong class="keep"><abbr title="Flexible Image Transport System（天文原始线性图像格式）">FITS</abbr> / <abbr title="Extensible Image Serialization Format（PixInsight 扩展天文图像格式）">XISF</abbr></strong> 处理成能发出去的作品：这条路上要用的工具，我一件件做了出来。</p>
         <div class="hero__actions">
           <a class="btn btn--primary" href="#projects">看看有哪些工具</a>
           <a class="link" href="https://astra.starun.cloud/">直接处理一张图</a>
@@ -92,7 +93,7 @@
                  alt="合成插画：几块发光的面板浮在星空中，面板上画着波形、仪表与光点。" width="1200" height="896" fetchpriority="high" decoding="async">
           </picture>
         </div>
-        <figcaption>微弱的光，也值得被看见。<span class="plate__note">合成插画：面板与星空的示意图，非实拍。</span></figcaption>
+        <figcaption>微弱的光，也值得被看见。</figcaption>
       </figure>
     </section>
 
@@ -112,17 +113,18 @@
         <p class="catalogue__count" id="project-count" role="status" aria-live="polite">7 个项目，等你探索</p>
       </div>
 
-      <div class="deck" id="project-deck" tabindex="0" aria-label="Starun 项目立体层叠轮播">
+      <div class="deck" id="project-deck" role="region" aria-roledescription="carousel" aria-label="Starun 项目立体层叠轮播">
+        <p class="visually-hidden" id="deck-status" role="status" aria-live="polite"></p>
         <div class="deck__stage">
           <a class="card deck__card" href="https://astra.starun.cloud/" data-category="processing" data-deck-pos="0" aria-labelledby="web-title">
             <img src="assets/r/shot-astra-700.webp"
                  srcset="assets/r/shot-astra-700.webp 700w, assets/r/shot-astra-1400.webp 1400w"
                  sizes="(min-width: 60rem) 440px, 84vw"
-                 alt="Starun 网页版界面：左侧是 FITS 元数据表，中间是拖放上传区，右侧是诊断参数。" width="1400" height="875" loading="lazy" decoding="async">
+                 alt="Starun 网页版界面：左侧是 FITS 元数据表，中间是拖放上传区，右侧是诊断参数。" width="1400" height="875" decoding="async">
             <div class="card__body">
               <span class="card__badge">影像后期 · WEB</span>
               <h3 id="web-title">Starun 网页版</h3>
-              <p class="card__line">上传线性 <abbr title="Flexible Image Transport System">FITS</abbr> / <abbr title="Extensible Image Serialization Format">XISF</abbr>，拿到星点、噪声与动态范围的诊断报告，再选一套风格自动出图。</p>
+              <p class="card__line">上传线性 <abbr title="Flexible Image Transport System（天文原始线性图像格式）">FITS</abbr> / <abbr title="Extensible Image Serialization Format（PixInsight 扩展天文图像格式）">XISF</abbr>，拿到星点、噪声与动态范围的诊断报告，再选一套风格自动出图。</p>
               <p class="card__facts">网页应用 · 专业分析 · AI 自动出图 · 效果对比</p>
               <span class="card__cta">打开工作台 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></span>
             </div>
@@ -132,7 +134,7 @@
             <img src="assets/r/shot-client-700.webp"
                  srcset="assets/r/shot-client-700.webp 700w, assets/r/shot-client-1400.webp 1400w"
                  sizes="(min-width: 60rem) 440px, 84vw"
-                 alt="StarunClient 仓库：提交记录与文件列表。" width="1400" height="875" loading="lazy" decoding="async">
+                 alt="StarunClient 仓库：提交记录与文件列表。" width="1400" height="875" decoding="async">
             <div class="card__body">
               <span class="card__badge">影像后期 · macOS</span>
               <h3 id="pc-title">Starun 桌面端</h3>
@@ -146,11 +148,11 @@
             <img src="assets/r/shot-android-700.webp"
                  srcset="assets/r/shot-android-700.webp 700w, assets/r/shot-android-1400.webp 1400w"
                  sizes="(min-width: 60rem) 440px, 84vw"
-                 alt="StarunAndroid 仓库：提交记录与文件列表。" width="1400" height="875" loading="lazy" decoding="async">
+                 alt="StarunAndroid 仓库：提交记录与文件列表。" width="1400" height="875" decoding="async">
             <div class="card__body">
               <span class="card__badge">影像后期 · ANDROID</span>
               <h3 id="mobile-title">Starun 手机端</h3>
-              <p class="card__line">在 Android 上直接打开 <abbr title="Flexible Image Transport System">FITS</abbr> / <abbr title="Extensible Image Serialization Format">XISF</abbr>，通勤路上也能修完一张。离线可用，修完直接分享。</p>
+              <p class="card__line">在 Android 上直接打开 <abbr title="Flexible Image Transport System（天文原始线性图像格式）">FITS</abbr> / <abbr title="Extensible Image Serialization Format（PixInsight 扩展天文图像格式）">XISF</abbr>，通勤路上也能修完一张。离线可用，修完直接分享。</p>
               <p class="card__facts">Android 应用 · 离线运行 · 随身后期</p>
               <span class="card__cta">查看仓库 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></span>
             </div>
@@ -160,7 +162,7 @@
             <img src="assets/r/shot-motion-700.webp"
                  srcset="assets/r/shot-motion-700.webp 700w, assets/r/shot-motion-1400.webp 1400w"
                  sizes="(min-width: 60rem) 440px, 84vw"
-                 alt="深空视差工作台：中间是照片预览区，右侧分素材、分析、参数三步。" width="1400" height="875" loading="lazy" decoding="async">
+                 alt="深空视差工作台：中间是照片预览区，右侧分素材、分析、参数三步。" width="1400" height="875" decoding="async">
             <div class="card__body">
               <span class="card__badge">影像后期 · 3D MOTION</span>
               <h3 id="motion-title">deepsky-motion 深空视差</h3>
@@ -174,7 +176,7 @@
             <img src="assets/r/shot-telescope-700.webp"
                  srcset="assets/r/shot-telescope-700.webp 700w, assets/r/shot-telescope-1400.webp 1400w"
                  sizes="(min-width: 60rem) 440px, 84vw"
-                 alt="智能望远镜参数对比页：七款机型并排，逐项列出定价、传感器与曝光参数。" width="1400" height="875" loading="lazy" decoding="async">
+                 alt="智能望远镜参数对比页：七款机型并排，逐项列出定价、传感器与曝光参数。" width="1400" height="875" decoding="async">
             <div class="card__body">
               <span class="card__badge">拍摄与器材 · 选型对照</span>
               <h3 id="telescope-title">智能望远镜对照表</h3>
@@ -188,7 +190,7 @@
             <img src="assets/r/shot-map-700.webp"
                  srcset="assets/r/shot-map-700.webp 700w, assets/r/shot-map-1400.webp 1400w"
                  sizes="(min-width: 60rem) 440px, 84vw"
-                 alt="夜间灯光变化地图：地图按亮度着色，右侧是年份、图层与图例控件。" width="1400" height="875" loading="lazy" decoding="async">
+                 alt="夜间灯光变化地图：地图按亮度着色，右侧是年份、图层与图例控件。" width="1400" height="875" decoding="async">
             <div class="card__body">
               <span class="card__badge">拍摄与器材 · 光污染地图</span>
               <h3 id="map-title">找一片更暗的天空</h3>
@@ -202,7 +204,7 @@
             <img src="assets/r/shot-skill-700.webp"
                  srcset="assets/r/shot-skill-700.webp 700w, assets/r/shot-skill-1400.webp 1400w"
                  sizes="(min-width: 60rem) 440px, 84vw"
-                 alt="deepsky-skill 仓库：提交记录与文件列表。" width="1400" height="875" loading="lazy" decoding="async">
+                 alt="deepsky-skill 仓库：提交记录与文件列表。" width="1400" height="875" decoding="async">
             <div class="card__body">
               <span class="card__badge">AI 工作流 · AGENT</span>
               <h3 id="skills-title">DeepSky Skills</h3>
@@ -214,41 +216,25 @@
         </div>
 
         <div class="deck__controls">
-          <div class="deck__dots" role="tablist" aria-label="项目位置指示器"></div>
-          <span class="deck__counter"><span id="deck-cur">1</span> / <span id="deck-total">7</span></span>
+          <button type="button" class="deck__btn" data-deck-prev aria-label="上一个项目">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M10 3.5L5.5 8L10 12.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <nav class="deck__dots" aria-label="选择项目"></nav>
+          <button type="button" class="deck__btn" data-deck-next aria-label="下一个项目">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M6 3.5L10.5 8L6 12.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <span class="deck__counter" aria-hidden="true"><span id="deck-cur">1</span> / <span id="deck-total">7</span></span>
         </div>
-      </div>
-    </section>
-
-    <section id="workflow" class="paths" aria-labelledby="workflow-title">
-      <div class="container paths__inner">
-        <h2 id="workflow-title">今晚，想从哪里开始？</h2>
-        <ol class="paths__list">
-          <li>
-            <div>
-              <h3><a href="https://starun.cloud/telescope">准备一次拍摄</a></h3>
-              <p>先选对器材，再出发寻找星空。</p>
-            </div>
-          </li>
-          <li>
-            <div>
-              <h3><a href="https://astra.starun.cloud/">完成一张作品</a></h3>
-              <p>让已经捕获的光，展现更多细节。</p>
-            </div>
-          </li>
-          <li>
-            <div>
-              <h3><a href="https://github.com/MZqk/deepsky-skill">试试 AI 工作流</a></h3>
-              <p>把重复步骤交给工具，把好奇留给自己。</p>
-            </div>
-          </li>
-        </ol>
       </div>
     </section>
 
     <section id="about" class="about container" aria-labelledby="about-title">
       <div class="about__header">
-        <h2 id="about-title">一个开发者，<br>一些关于<span class="keep">星空</span>的想法。</h2>
+        <h2 id="about-title">一个开发者，<br>一些关于<span class="keep">星空</span>的<span class="keep">想法。</span></h2>
       </div>
       <div class="about__content">
         <div class="about__narrative">
@@ -261,7 +247,7 @@
             <span class="about__stat">100% 独立开发 · 保持纯粹</span>
           </div>
           <div class="about__sign">
-            <img src="assets/starun.svg" alt="" width="32" height="32" loading="lazy">
+            <img src="assets/starun.svg" alt="" width="32" height="32">
             <div class="about__byline">
               <span class="about__salute">Clear skies,</span>
               <strong class="about__author">MZZZ</strong>
@@ -275,7 +261,7 @@
   <footer class="foot">
     <div class="container foot__inner">
       <a class="brand brand--foot" href="#main" aria-label="回到 Starun 首页">
-        <img src="assets/starun.svg" alt="" width="20" height="20" loading="lazy">
+        <img src="assets/starun.svg" alt="" width="20" height="20">
         <span>starun<span class="brand__dot">.</span></span>
       </a>
       <div class="foot__meta">

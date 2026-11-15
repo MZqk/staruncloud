@@ -37,10 +37,10 @@ web
 - **运行环境**：
   - Starun 首页：无构建依赖的纯静态现代化 Web 站（位于 `dist/`），轻量高效；
   - 子项目生态矩阵：
-    - `Starun Web` (`astra.starun.cloud`)：在线 FITS/XISF 诊断与 AI 风格化出图；
+    - `Starun 网页版` (`astra.starun.cloud`)：在线 FITS/XISF 诊断与 AI 风格化出图；
     - `Starun 桌面端` (`StarunClient`)：macOS 本地离线 Siril 自动化流水线；
     - `Starun 手机端` (`StarunAndroid`)：Android 随身离线修图应用；
-    - `deepsky-motion` (`starun.cloud/motion/`)：星点分层 3D 视差运镜生成器；
+    - `deepsky-motion 深空视差` (`starun.cloud/motion/`)：星点分层 3D 视差运镜生成器；
     - `智能望远镜对照表` (`starun.cloud/telescope`)：Seestar / DWARF 等机型参数横向对照；
     - `找一片更暗的天空` (`starun.cloud/map`)：波特尔等级暗空光污染查询；
     - `DeepSky Skills` (`deepsky-skill`)：基于大模型的智能拍摄顾问与自动化工作流。

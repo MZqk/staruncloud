@@ -125,7 +125,7 @@ Starun 视觉系统是一座坐落于高山暗夜深处的深空天文台。在�
 ### Neutral
 - **Observatory Night Ground (暗夜基盘)** (`oklch(12.5% 0.027 290)`): 全站主画布背景色，略带紫蓝色向的深邃极暗场域，消除夜间视觉疲劳。
 - **Tonal Surface (表面色阶)** (`oklch(16% 0.03 290)`): 卡片、浮动胶囊导航的基础底色，提供与基盘之间清晰但柔和的视觉分界。
-- **Raised Surface (升阶夜色)** (`oklch(20% 0.032 290)`): 选中态芯片（Chip）、探索路径重点带状区域（Paths）的高一级底色。
+- **Raised Surface (升阶夜色)** (`oklch(20% 0.032 290)`): 选中态芯片（Chip）、次级按钮悬浮态与活跃卡片阶梯混合的高一级底色。
 - **Celestial Silver Ink (星辉银墨)** (`oklch(96% 0.01 300)`): 主标题与高权重文本，极高对比度（> 15:1），澄澈纯净。
 - **Soft Silver Ink (柔光墨色)** (`oklch(85% 0.017 298)`): 副文本、导语段落与说明文字，对比度 > 10:1。
 - **Muted Constellation (暗星注释)** (`oklch(69% 0.026 295)`): 元数据标签、侧边注释与技术细节文字，符合 WCAG AA 正文规范。
@@ -141,7 +141,7 @@ Starun 视觉系统是一座坐落于高山暗夜深处的深空天文台。在�
 
 **Display Font:** `"Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", "STSong", "SimSun", Georgia, serif`  
 **Body Font:** `-apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif`  
-**Label/Mono Font:** `ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace`
+**Label/Mono Font:** `ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace`
 
 **Character:** 古典宋体的刀刻笔触带来守望星空沉淀千年的静谧人文气质；系统无衬线正文带来零延迟、不卡顿的高清可读性；等宽数字保证科学仪器般的测量与读数秩序。
 
@@ -169,7 +169,7 @@ Starun 视觉系统是一座坐落于高山暗夜深处的深空天文台。在�
 在暗夜环境下，传统的模糊投影要么难以察觉，要么会形成不自然的浑浊脏感。因此 Starun 彻底摒弃一切常规 `box-shadow`。界面从底到高构建了三层纯净的物理阶地：
 1. **地表层 (Base Ground)**：`--color-paper`，承载全局整体视界；
 2. **构筑层 (Surfaces & Cards)**：`--color-paper-2`，配合 1px `--color-rule-2` 边缘线收束浮动感；
-3. **高光层 (Raised Highlights)**：`--color-paper-3`，用于区分当前活跃区域（如探索路径）。
+3. **高光层 (Raised Highlights)**：`--color-paper-3`，用于区分当前活跃区域（如选中态筛选芯片、控件悬浮态及居中聚焦卡片的微阶梯提升）。
 
 所有的悬浮与聚焦反馈，均通过底色亮度阶跃或微发丝边框明度变化表达，保持视觉场域的至静至美。
 
@@ -197,10 +197,10 @@ Starun 视觉系统是一座坐落于高山暗夜深处的深空天文台。在�
 - **Image Integration:** 卡片顶部图片严格保持 `16:10` 黄金比例，边缘携带内发丝线防溢出，与深空底色天然融为一体。
 
 ### Navigation
-- **Floating Mast Pill:** 居中浮动的半岛式玻璃胶囊导航，维持 `56px` 高度，内部采用均衡的 `8px 24px` 舒畅内衬，桌面端携带完整品牌标与项目跳转，移动端自动精简。
+- **Floating Mast Pill:** 居中浮动的半岛式胶囊导航，维持 `56px` 高度，内部采用 `5px 24px` 内边距配合 `44px` 品牌标与导航链接热区（桌面端含 `项目` 与 `关于我` 两项锚点，移动端保留双锚点并收紧间距且隐藏右侧冗余 CTA）。
 
 ### Signature Component: 3D Layered Carousel Deck
-- **形态与行为:** 全量 7 款项目集中于统一的立体景深舞台中；选中的当前项（`pos=0`）置顶居中并可直接点击进入，左右相邻项作为景深切片呈现；支持多维分类无缝过滤重排、左右箭头步进、底部位置指示圆点直达、键盘左右键（`ArrowLeft / ArrowRight`）导航以及触控屏滑动手势。
+- **形态与行为:** 当展示条目 `>= 3` 时（如全部 `7` 项或 `影像后期` `4` 项），启用桌面端立体景深层叠轮播（`perspective: 1200px`），居中当前项（`pos=0`）并显式提供 `44×44px`「上一个 / 下一个」圆形按钮、`44×44px` 命中区的圆点直达按钮（`aria-current="true"`）、实时计数器，以及键盘方向键与触控滑动手势；移动端 `<= 48rem` 仅渲染当前居中卡片以避免侧卡文本裁切；当筛选结果仅剩 `2` 项时自动切换为对称双列平铺（`data-deck-mode="pair"`），仅剩 `1` 项时切换为横向特色展板（`data-deck-mode="single"`）并自动隐藏轮播控制条。
 
 ## Do's and Don'ts
 
